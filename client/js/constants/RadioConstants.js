@@ -8,5 +8,9 @@ module.exports = {
     USER_LOGIN_ERROR: 22,
 
     USER_LOGOUT: 3,
+
+    ADD_SONG: 40,
+    ADD_SONG_SUCCESS: 41,
+    ADD_SONG_ERROR: 42,
   }
 };

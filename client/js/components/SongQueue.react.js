@@ -1,10 +1,12 @@
 var React = require('react');
+var _ = require('underscore');
+
 var SongQueueLine = require('./SongQueueLine.react');
 
 var SongQueue = React.createClass({
 
   render: function() {
-    var queueElements = this.props.songQueue.map(function(song) {
+    var queueElements = _.mapObject(this.props.songQueue, function(song) {
       return (
         <tr>
           <SongQueueLine

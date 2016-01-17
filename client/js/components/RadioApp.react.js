@@ -14,6 +14,7 @@ function getState() {
   return {
     songQueue: SongQueueStore.getAll(),
     user: UserStore.get(),
+    isAddingSong: SongQueueStore.isLoading(),
   }
 }
 var RadioApp = React.createClass({
@@ -37,7 +38,7 @@ var RadioApp = React.createClass({
       <div className="radioapp">
         <UserPanel user={this.state.user} />
         <SongQueue songQueue={this.state.songQueue} />
-        <AddSong username={this.state.user.name} />
+        <AddSong username={this.state.user.name} isLoading={this.state.isAddingSong}/>
       </div>
     );
   },

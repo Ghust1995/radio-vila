@@ -7,9 +7,14 @@ var ActionTypes = RadioConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
 var _songQueue = {};
+var _loading = false;
 
-function _addSongs(rawSongs) {
-  _songQueue = rawSongs;
+function _toggleLoading() {
+  _loading = !_loading;
+}
+
+function _addSong(rawSong) {
+  _songQueue[rawSong.id] = rawSong;
 }
 
 var SongQueueStore = _.extend({}, EventEmitter.prototype, {
@@ -33,6 +38,10 @@ var SongQueueStore = _.extend({}, EventEmitter.prototype, {
   getAll: function() {
     return _songQueue;
   },
+
+  isLoading: function() {
+    return _loading;
+  }
 });
 
 Dispatcher.register(function(action) {
@@ -40,7 +49,20 @@ Dispatcher.register(function(action) {
   switch(action.type) {
 
     case ActionTypes.RECEIVE_RAW_SONGS:
-      _addSongs(action.rawSongQueue);
+      action.rawSongQueue.forEach(function(rawSong) {
+        _addSong(rawSong);
+      });
+      SongQueueStore.emitChange();
+      break;
+
+    case ActionTypes.ADD_SONG:
+      _toggleLoading();
+      SongQueueStore.emitChange();
+      break;
+
+    case ActionTypes.ADD_SONG_SUCCESS:
+      _toggleLoading();
+      _addSong(action.song);
       SongQueueStore.emitChange();
       break;
 

@@ -24,10 +24,12 @@ var Login = React.createClass({
     var user = {
       name: this.state.username,
       password: this.state.password,
-    }
+    };
+
     this.setState({
       password: '',
     });
+
     RadioServerActionCreators.userLogin(user);
   },
 
