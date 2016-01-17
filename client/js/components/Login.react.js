@@ -25,6 +25,9 @@ var Login = React.createClass({
       name: this.state.username,
       password: this.state.password,
     }
+    this.setState({
+      password: '',
+    });
     RadioServerActionCreators.userLogin(user);
   },
 
@@ -44,7 +47,7 @@ var Login = React.createClass({
             value={this.state.password}
             onChange={this.handlePasswordChange}
             />
-          <input type="submit" value="Post"/>
+          <input type="submit" value="Login"/>
         </form>
       </div>
     );

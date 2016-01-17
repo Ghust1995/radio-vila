@@ -27,4 +27,10 @@ module.exports = {
       user: user
     });
   },
+
+  userLogout: function(user) {
+    Dispatcher.dispatch({
+      type: ActionTypes.USER_LOGOUT,
+    });
+  },
 };

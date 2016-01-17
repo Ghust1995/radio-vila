@@ -5,7 +5,7 @@ var Greeting = React.createClass({
 
   render: function() {
     return (
-      <div className="userGreeting" hidden={this.props.isHidden}>
+      <div className="userGreeting">
         Hello, <b>{this.props.username}</b>!
       </div>
     );

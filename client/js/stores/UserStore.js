@@ -40,6 +40,11 @@ Dispatcher.register(function(action) {
       UserStore.emitChange();
       break;
 
+    case ActionTypes.USER_LOGOUT:
+      _setUser({});
+      UserStore.emitChange();
+      break;
+
     default:
       // do nothing
   }

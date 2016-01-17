@@ -2,21 +2,32 @@ var React = require('react');
 var _ = require('underscore');
 
 var Login = require('./Login.react');
+var Logout = require('./Logout.react');
 var Greeting = require('./Greeting.react');
 
 
 var UserPanel = React.createClass({
 
   render: function() {
+    var isUserLogged = _.isEmpty(this.props.user);
+
     return (
-      <div className="userPane">
-        <Greeting
-          isHidden={_.isEmpty(this.props.user)}
-          username={this.props.user.name}
-        />
-        <Login
-          isHidden={!_.isEmpty(this.props.user)} 
-        />
+      <div className="userPanel">
+        <div
+          className="userPanel-logged-in"
+          hidden={isUserLogged}>
+          <Greeting
+            username={this.props.user.name}
+            />
+          <Logout />
+        </div>
+        <div>
+          <div
+            className="userPanel-logged-in"
+            hidden={!isUserLogged}>
+            <Login />
+          </div>
+        </div>
       </div>
     );
   }
