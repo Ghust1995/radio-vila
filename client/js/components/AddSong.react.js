@@ -1,6 +1,6 @@
 var React = require('react');
 
-var RadioServerActionCreators = require('../actions/RadioServerActionCreators');
+var RadioViewActionCreator = require('../actions/RadioViewActionCreator');
 
 var idcount = 0;
 
@@ -28,7 +28,7 @@ var AddSong = React.createClass({
       songName: '',
     });
 
-    RadioServerActionCreators.addSong(song);
+    RadioViewActionCreator.addSong(song);
   },
 
   render: function() {

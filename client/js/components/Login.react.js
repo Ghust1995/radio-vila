@@ -1,6 +1,6 @@
 var React = require('react');
 
-var RadioServerActionCreators = require('../actions/RadioServerActionCreators');
+var RadioViewActionCreator = require('../actions/RadioViewActionCreator');
 
 
 var Login = React.createClass({
@@ -30,12 +30,12 @@ var Login = React.createClass({
       password: '',
     });
 
-    RadioServerActionCreators.userLogin(user);
+    RadioViewActionCreator.userLogin(user);
   },
 
   render: function() {
     return (
-      <div class="loginForm" hidden={this.props.isHidden}>
+      <div className="loginForm" hidden={this.props.isHidden}>
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"

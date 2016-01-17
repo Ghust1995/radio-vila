@@ -4,7 +4,6 @@ var RadioConstants = require('../constants/RadioConstants');
 var ActionTypes = RadioConstants.ActionTypes;
 
 module.exports = {
-
   receiveAll: function(rawSongQueue) {
     Dispatcher.dispatch({
       type: ActionTypes.RECEIVE_RAW_SONGS,
@@ -12,43 +11,46 @@ module.exports = {
     });
   },
 
-  addSong: function(song) {
-    Dispatcher.dispatch({
-      type: ActionTypes.ADD_SONG,
-    });
-
-    // Add call to server logic here with callback:
-    // ADD_SONG_SUCCESS in case of success
-    // ADD_SONG_ERROR in case of error
-
-    setTimeout(function functionName() {
+  addSongSuccess: function(song) {
       Dispatcher.dispatch({
         type: ActionTypes.ADD_SONG_SUCCESS,
         song: song
       });
-    }, 3000);
   },
 
-  userLogin: function(user) {
-    Dispatcher.dispatch({
-      type: ActionTypes.USER_LOGIN,
-    });
-
-    // Add call to server logic here with callback:
-    // USER_LOGIN_SUCCESS in case of success
-    // USER_LOGIN_ERROR in case of error
-
-    setTimeout(function functionName() {
+  addSongError: function(err) {
       Dispatcher.dispatch({
-        type: ActionTypes.USER_LOGIN_SUCCESS,
-        user: user
+        type: ActionTypes.ADD_SONG_ERROR,
+        error: err,
       });
-    }, 500);
   },
 
-  userLogout: function(user) {
+  userLoginSuccess: function(user) {
     Dispatcher.dispatch({
-      type: ActionTypes.USER_LOGOUT,
+      type: ActionTypes.USER_LOGIN_SUCCESS,
+      user: user,
     });
   },
+
+  userLoginError: function(err) {
+    Dispatcher.dispatch({
+      type: ActionTypes.USER_LOGIN_ERROR,
+      error: err,
+    });
+  },
+
+  userLogoutSuccess: function(user) {
+    Dispatcher.dispatch({
+      type: ActionTypes.USER_LOGOUT_SUCCESS,
+      user: user,
+    });
+  },
+
+  userLogoutError: function(err) {
+    Dispatcher.dispatch({
+      type: ActionTypes.USER_LOGOUT_ERROR,
+      err: err,
+    });
+  },
+
 };

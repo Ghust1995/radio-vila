@@ -1,14 +1,14 @@
 var React = require('react');
 
-var RadioServerActionCreators = require('../actions/RadioServerActionCreators');
+var RadioViewActionCreator = require('../actions/RadioViewActionCreator');
 
 var Logout = React.createClass({
 
   handleSubmit: function(e) {
     e.preventDefault();
-    RadioServerActionCreators.userLogout();
+    RadioViewActionCreator.userLogout();
   },
-  
+
   render: function() {
     return (
       <div className="logout">

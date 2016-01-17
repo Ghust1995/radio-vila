@@ -11,7 +11,7 @@ var SongQueue = React.createClass({
         <tr>
           <SongQueueLine
             name={song.name}
-            key={song.id}
+            key={"s_" + song.id}
             user={song.user} >
 
           </SongQueueLine>
@@ -20,7 +20,7 @@ var SongQueue = React.createClass({
     });
 
     return (
-      <div class="songQueue">
+      <div className="songQueue">
         <table>
           {queueElements}
         </table>
