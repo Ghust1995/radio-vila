@@ -37,6 +37,7 @@ Dispatcher.register(function(action) {
 
     case ActionTypes.USER_LOGIN_SUCCESS:
       _setUser(action.user);
+      UserStore.emitChange();
       break;
 
     default:
