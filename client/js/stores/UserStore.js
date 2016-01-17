@@ -6,13 +6,13 @@ var _ = require('underscore');
 var ActionTypes = RadioConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
-var _songQueue = {};
+var _user = {};
 
-function _addSongs(rawSongs) {
-  _songQueue = rawSongs;
+function _setUser(user) {
+  _user = user;
 }
 
-var SongQueueStore = _.extend({}, EventEmitter.prototype, {
+var UserStore = _.extend({}, EventEmitter.prototype, {
 
   emitChange: function() {
     this.emit(CHANGE_EVENT);
@@ -26,12 +26,8 @@ var SongQueueStore = _.extend({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
-  getSingle: function(id) {
-    return _songQueue[id];
-  },
-
-  getAll: function() {
-    return _songQueue;
+  get: function() {
+    return _user;
   },
 });
 
@@ -39,9 +35,8 @@ Dispatcher.register(function(action) {
 
   switch(action.type) {
 
-    case ActionTypes.RECEIVE_RAW_SONGS:
-      _addSongs(action.rawSongQueue);
-      SongQueueStore.emitChange();
+    case ActionTypes.USER_LOGIN_SUCCESS:
+      _setUser(action.user);
       break;
 
     default:
@@ -50,4 +45,4 @@ Dispatcher.register(function(action) {
 
 });
 
-module.exports = SongQueueStore;
+module.exports = UserStore;
