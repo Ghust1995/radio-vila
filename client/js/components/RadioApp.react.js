@@ -13,8 +13,9 @@ var AddSong = require('./AddSong.react');
 function getState() {
   return {
     songQueue: SongQueueStore.getAll(),
-    user: UserStore.get(),
     isAddingSong: SongQueueStore.isLoading(),
+    user: UserStore.get(),
+    isUserLogged: UserStore.isLogged(),
   }
 }
 var RadioApp = React.createClass({
@@ -37,8 +38,10 @@ var RadioApp = React.createClass({
     return (
       <div className="radioapp">
         <UserPanel user={this.state.user} />
-        <SongQueue songQueue={this.state.songQueue} />
-        <AddSong username={this.state.user.name} isLoading={this.state.isAddingSong}/>
+        <div className="songQueueView" hidden={!this.state.isUserLogged}>
+          <SongQueue songQueue={this.state.songQueue} />
+          <AddSong username={this.state.user.name} isLoading={this.state.isAddingSong}/>
+        </div>
       </div>
     );
   },

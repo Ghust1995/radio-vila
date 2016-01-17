@@ -29,6 +29,10 @@ var UserStore = _.extend({}, EventEmitter.prototype, {
   get: function() {
     return _user;
   },
+
+  isLogged: function() {
+    return !_.isEmpty(_user);
+  }
 });
 
 Dispatcher.register(function(action) {
