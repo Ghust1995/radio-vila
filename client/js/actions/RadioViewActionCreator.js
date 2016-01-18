@@ -9,6 +9,7 @@ module.exports = {
   addSong: function(song) {
     Dispatcher.dispatch({
       type: ActionTypes.ADD_SONG,
+      song: song
     });
 
     RadioWebAPIUtils.addSong(song);

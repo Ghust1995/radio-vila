@@ -11,6 +11,7 @@ module.exports = {
         name: 'A rainbow in curved air',
         rating: 0,
         voteType: VoteTypes.UNVOTED,
+        timeCreated: new Date().getTime(),
       },
       {
         id: 2,
@@ -18,6 +19,7 @@ module.exports = {
         name: 'Red Right Ankle',
         rating: 2,
         voteType: VoteTypes.UNVOTED,
+        timeCreated: new Date().getTime(),
       },
       {
         id: 3,
@@ -25,6 +27,7 @@ module.exports = {
         name: 'Musica do peh',
         rating: -1,
         voteType: VoteTypes.UNVOTED,
+        timeCreated: new Date().getTime(),
       },
     ]));
   }

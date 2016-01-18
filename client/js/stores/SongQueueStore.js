@@ -68,7 +68,10 @@ Dispatcher.register(function(action) {
 
     case ActionTypes.ADD_SONG:
       _toggleLoading();
-      _addSong(action.song);
+      var notSoRawSong = action.song;
+      notSoRawSong.voteType = VoteTypes.UPVOTED;
+      notSoRawSong.rating = 1;
+      _addSong(notSoRawSong);
       SongQueueStore.emitChange();
       break;
 

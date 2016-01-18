@@ -18,10 +18,10 @@ var AddSong = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
     var song = {
-      id: idcount++,
+      id: (new Date()).getTime(),
       user: this.props.username,
       name: this.state.songName,
-      rating: 0,
+      timeCreated: new Date().getTime(),
     };
 
     this.setState({

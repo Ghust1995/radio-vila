@@ -1,7 +1,6 @@
 var React = require('react');
 
 var QueuedVote = require('./QueuedVote.react');
-var QueuedUnvote = require('./QueuedUnvote.react');
 
 var VoteTypes = require('../constants/VoteTypes');
 
