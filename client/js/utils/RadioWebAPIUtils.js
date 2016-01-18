@@ -11,7 +11,7 @@ module.exports = {
 
   addSong: function(song) {
     // Implement Correct API Call here
-    setTimeout(function() {RadioServerActionCreators.addSongSuccess(song);}, 2000);
+    setTimeout(function() {RadioServerActionCreators.addSongSuccess(song);}, 1000);
 
   },
 
@@ -24,4 +24,8 @@ module.exports = {
     // Implement Correct API Call here
     setTimeout(function() {RadioServerActionCreators.userLogoutSuccess(user);}, 100);
   },
+
+  rateQueuedSong: function(id, rating) {
+    setTimeout(function() {RadioServerActionCreators.rateQueuedSongSuccess(id, rating);}, 0);
+  }
 };

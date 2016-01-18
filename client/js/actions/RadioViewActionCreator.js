@@ -29,4 +29,14 @@ module.exports = {
 
     RadioWebAPIUtils.userLogout(user);
   },
+
+  rateQueuedSong: function(id, rating) {
+    Dispatcher.dispatch({
+      type:ActionTypes.RATE_QUEUED_SONG,
+      id: id,
+      rating: rating,
+    });
+
+    RadioWebAPIUtils.rateQueuedSong(id, rating);
+  },
 };

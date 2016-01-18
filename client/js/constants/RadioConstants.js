@@ -14,5 +14,9 @@ module.exports = {
     ADD_SONG: 40,
     ADD_SONG_SUCCESS: 41,
     ADD_SONG_ERROR: 42,
+
+    RATE_QUEUED_SONG: 50,
+    RATE_QUEUED_SONG_SUCCESS: 51,
+    RATE_QUEUED_SONG_ERROR: 52,
   }
 };

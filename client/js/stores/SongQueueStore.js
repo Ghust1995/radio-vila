@@ -17,6 +17,11 @@ function _addSong(rawSong) {
   _songQueue[rawSong.id] = rawSong;
 }
 
+function _rateSong(id, rating) {
+  _songQueue[id].rating += rating;
+  window.console.log("New Rating for " + _songQueue[id].name + "! Rating is now: " + _songQueue[id].rating);
+}
+
 var SongQueueStore = _.extend({}, EventEmitter.prototype, {
 
   emitChange: function() {
@@ -63,6 +68,11 @@ Dispatcher.register(function(action) {
     case ActionTypes.ADD_SONG_SUCCESS:
       _toggleLoading();
       _addSong(action.song);
+      SongQueueStore.emitChange();
+      break;
+
+    case ActionTypes.RATE_QUEUED_SONG_SUCCESS:
+      _rateSong(action.id, action.rating);
       SongQueueStore.emitChange();
       break;
 

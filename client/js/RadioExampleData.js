@@ -4,22 +4,22 @@ module.exports = {
     localStorage.clear();
     localStorage.setItem('songQueue', JSON.stringify([
       {
-        id: 's_1',
+        id: 1,
         user: 'Mut',
         name: 'A rainbow in curved air',
-        rating: 10,
+        rating: 0,
       },
       {
-        id: 's_2',
+        id: 2,
         user: 'Mut',
         name: 'Red Right Ankle',
-        rating: 10,
+        rating: 2,
       },
       {
-        id: 's_2',
+        id: 3,
         user: 'Peh',
         name: 'Musica do peh',
-        rating: 5,
+        rating: -1,
       },
     ]));
   }

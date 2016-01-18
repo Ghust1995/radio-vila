@@ -25,6 +25,21 @@ module.exports = {
       });
   },
 
+  rateQueuedSongSuccess: function(id, rating) {
+    Dispatcher.dispatch({
+      type: ActionTypes.RATE_QUEUED_SONG_SUCCESS,
+      id: id,
+      rating: rating,
+    });
+  },
+
+  rateQueuedSongError: function(err) {
+    Dispatcher.dispatch({
+      type: ActionTypes.RATE_QUEUED_SONG_ERROR,
+      error: err,
+    });
+  },
+
   userLoginSuccess: function(user) {
     Dispatcher.dispatch({
       type: ActionTypes.USER_LOGIN_SUCCESS,
@@ -52,5 +67,4 @@ module.exports = {
       err: err,
     });
   },
-
 };

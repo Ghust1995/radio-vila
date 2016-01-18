@@ -6,23 +6,29 @@ var SongQueueLine = require('./SongQueueLine.react');
 var SongQueue = React.createClass({
 
   render: function() {
-    var queueElements = _.mapObject(this.props.songQueue, function(song) {
+    var sortedQueue = _.sortBy(this.props.songQueue, function(song) {return song.rating })
+    var queueElements = _.map(sortedQueue, function(song) {
       return (
-        <tr>
           <SongQueueLine
             name={song.name}
-            key={"s_" + song.id}
+            id={song.id}
+            key={"s_" + song.id.toString()}
             user={song.user} >
-
           </SongQueueLine>
-        </tr>
       )
     });
 
     return (
       <div className="songQueue">
         <table>
-          {queueElements}
+          <thead>
+            <th> Song: </th>
+            <th> User: </th>
+            <th> VOTE! </th>
+          </thead>
+          <tbody>
+            {queueElements}
+          </tbody>
         </table>
       </div>
     );
