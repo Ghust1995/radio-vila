@@ -10,10 +10,8 @@ var SongQueue = React.createClass({
     var queueElements = _.map(sortedQueue, function(song) {
       return (
           <SongQueueLine
-            name={song.name}
-            id={song.id}
-            key={"s_" + song.id.toString()}
-            user={song.user} >
+            song={song}
+            key={"s_" + song.id.toString()} >
           </SongQueueLine>
       )
     });
@@ -24,6 +22,7 @@ var SongQueue = React.createClass({
           <thead>
             <th> Song: </th>
             <th> User: </th>
+            <th> Rating: </th>
             <th> VOTE! </th>
           </thead>
           <tbody>

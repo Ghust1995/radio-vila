@@ -25,7 +25,7 @@ module.exports = {
     setTimeout(function() {RadioServerActionCreators.userLogoutSuccess(user);}, 100);
   },
 
-  rateQueuedSong: function(id, rating) {
-    setTimeout(function() {RadioServerActionCreators.rateQueuedSongSuccess(id, rating);}, 0);
-  }
+  voteQueuedSong: function(id, rating) {
+    //setTimeout(function() {RadioServerActionCreators.voteQueuedSongSuccess(id, rating);}, 0);
+  },
 };

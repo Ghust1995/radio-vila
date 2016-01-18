@@ -30,13 +30,13 @@ module.exports = {
     RadioWebAPIUtils.userLogout(user);
   },
 
-  rateQueuedSong: function(id, rating) {
+  voteQueuedSong: function(id, voteType) {
     Dispatcher.dispatch({
-      type:ActionTypes.RATE_QUEUED_SONG,
+      type:ActionTypes.VOTE_QUEUED_SONG,
       id: id,
-      rating: rating,
+      voteType: voteType,
     });
 
-    RadioWebAPIUtils.rateQueuedSong(id, rating);
+    RadioWebAPIUtils.voteQueuedSong(id, voteType);
   },
 };

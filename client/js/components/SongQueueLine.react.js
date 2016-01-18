@@ -1,29 +1,19 @@
 var React = require('react');
 
-var RadioViewActionCreator = require('../actions/RadioViewActionCreator');
+var QueuedVote = require('./QueuedVote.react');
+var QueuedUnvote = require('./QueuedUnvote.react');
+
+var VoteTypes = require('../constants/VoteTypes');
 
 var SongQueueComponent = React.createClass({
-
-  handleUpvote: function() {
-    RadioViewActionCreator.rateQueuedSong(this.props.id, +1);
-  },
-
-  handleDownvote: function() {
-    RadioViewActionCreator.rateQueuedSong(this.props.id, -1);
-  },
-
   render: function() {
     return (
       <tr className="songElement">
-        <td>{this.props.name}</td>
-        <td>{this.props.user}</td>
+        <td>{this.props.song.name}</td>
+        <td>{this.props.song.user}</td>
+        <td>{this.props.song.rating}</td>
         <td>
-          <button className="btn-upvote"  onClick={this.handleUpvote}>
-            Upvote!
-          </button>
-          <button className="btn-downvote"  onClick={this.handleDownvote}>
-            Downvote!
-          </button>
+          <QueuedVote songId={this.props.song.id} voteType={this.props.song.voteType}/>
         </td>
       </tr>
     );

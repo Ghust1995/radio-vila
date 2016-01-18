@@ -3,6 +3,8 @@ var RadioConstants = require('../constants/RadioConstants');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('underscore');
 
+var VoteTypes = require('../constants/VoteTypes');
+
 var ActionTypes = RadioConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
@@ -14,12 +16,16 @@ function _toggleLoading() {
 }
 
 function _addSong(rawSong) {
-  _songQueue[rawSong.id] = rawSong;
+  if(_.isEmpty(_songQueue[rawSong.id]))
+    _songQueue[rawSong.id] = rawSong;
 }
 
-function _rateSong(id, rating) {
-  _songQueue[id].rating += rating;
-  window.console.log("New Rating for " + _songQueue[id].name + "! Rating is now: " + _songQueue[id].rating);
+function _setVoteForSong(id, voteType) {
+  _songQueue[id].voteType = voteType;
+}
+
+function _setSongRating(id, rating) {
+  _songQueue[id].rating = rating;
 }
 
 var SongQueueStore = _.extend({}, EventEmitter.prototype, {
@@ -62,6 +68,7 @@ Dispatcher.register(function(action) {
 
     case ActionTypes.ADD_SONG:
       _toggleLoading();
+      _addSong(action.song);
       SongQueueStore.emitChange();
       break;
 
@@ -71,8 +78,16 @@ Dispatcher.register(function(action) {
       SongQueueStore.emitChange();
       break;
 
-    case ActionTypes.RATE_QUEUED_SONG_SUCCESS:
-      _rateSong(action.id, action.rating);
+    case ActionTypes.VOTE_QUEUED_SONG:
+      var newRating = _songQueue[action.id].rating - _songQueue[action.id].voteType + action.voteType
+      _setVoteForSong(action.id, action.voteType);
+      _setSongRating(action.id, newRating);
+      SongQueueStore.emitChange();
+      break;
+
+    case ActionTypes.VOTE_QUEUED_SONG_SUCCESS:
+      _setVoteForSong(action.id, action.voteType);
+      _setSongRating(action.id, action.rating);
       SongQueueStore.emitChange();
       break;
 

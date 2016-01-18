@@ -25,17 +25,18 @@ module.exports = {
       });
   },
 
-  rateQueuedSongSuccess: function(id, rating) {
+  voteQueuedSongSuccess: function(id, voteType) {
     Dispatcher.dispatch({
-      type: ActionTypes.RATE_QUEUED_SONG_SUCCESS,
+      type: ActionTypes.VOTE_QUEUED_SONG_SUCCESS,
       id: id,
+      voteType: voteType,
       rating: rating,
     });
   },
 
-  rateQueuedSongError: function(err) {
+  voteQueuedSongError: function(err) {
     Dispatcher.dispatch({
-      type: ActionTypes.RATE_QUEUED_SONG_ERROR,
+      type: ActionTypes.VOTE_QUEUED_SONG_ERROR,
       error: err,
     });
   },
