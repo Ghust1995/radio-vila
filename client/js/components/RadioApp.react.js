@@ -6,7 +6,7 @@ var UserStore = require('../stores/UserStore');
 
 // Components
 var SongQueue = require('./SongQueue.react');
-var UserPanel = require('./UserPanel.react');
+var NavBar = require('./NavBar.react');
 var AddSong = require('./AddSong.react');
 
 
@@ -37,11 +37,11 @@ var RadioApp = React.createClass({
   render: function() {
     return (
       <div className="radioapp">
-        <UserPanel user={this.state.user} />
-        <div className="songQueueView" hidden={!this.state.isUserLogged}>
-          <SongQueue songQueue={this.state.songQueue} />
+        <NavBar user={this.state.user} />
+        <div hidden={!this.state.isUserLogged} style={{marginTop: 100}}>
           <AddSong username={this.state.user.name} isLoading={this.state.isAddingSong}/>
-        </div>
+          <SongQueue songQueue={this.state.songQueue} />
+        </div>::after
       </div>
     );
   },

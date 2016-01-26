@@ -11,8 +11,8 @@ var Logout = React.createClass({
 
   render: function() {
     return (
-      <div className="logout">
-        <input type="submit" value="Logout" onClick={this.handleSubmit} />
+      <div className="form-group">
+        <button type="submit" className="btn btn-danger" onClick={this.handleSubmit} >Logout</button>
       </div>
     );
   }

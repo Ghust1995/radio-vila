@@ -5,9 +5,9 @@ var Greeting = React.createClass({
 
   render: function() {
     return (
-      <div className="userGreeting">
+      <span className="form-group" style={{marginRight: 30}}>
         Hello, <b>{this.props.username}</b>!
-      </div>
+      </span>
     );
   }
 

@@ -20,37 +20,38 @@ var QueuedVote = React.createClass({
   render: function() {
     var voteType = this.props.voteType;
 
+    // TODO: make this more reusable
     var upVoteStyle = {
       height: 30,
       width: 30,
-      backgroundColor: '#20be22',
-      backgroundImage: 'img/arrow.png',
-      borderStyle: voteType == VoteTypes.UPVOTED ? 'solid' : 'none',
-      borderColor: '#285328',
-      borderWidth: 5,
+      color: voteType == VoteTypes.UPVOTED ? '#20be22' : '',
+      backgroundColor: 'transparent',
+      border: null,
+      outline: 0
     }
 
     var downVoteStyle = {
       height: 30,
       width: 30,
-      backgroundColor: '#d52626',
-      backgroundImage: 'img/arrow.png',
-      borderStyle: voteType == VoteTypes.DOWNVOTED ? 'solid' : 'none',
-      borderColor: '#5e1919',
-      borderWidth: 5,
+      color: voteType == VoteTypes.DOWNVOTED ? '#d52626' : '',
+      backgroundColor: 'transparent',
+      border: null,
+      outline: 0
     }
 
     return (
       <div className='queuedVoteButtons'>
         <button
-          className={'btn-upvote'}
+          className='btn btn-lg'
           onClick={voteType == VoteTypes.UPVOTED ? this.handleCancel : this.handleUpvote}
           style={upVoteStyle} >
+          <span className="glyphicon glyphicon-thumbs-up"></span>
         </button>
         <button
-          className={'btn-downvote'}
+          className='btn btn-lg'
           onClick={voteType == VoteTypes.DOWNVOTED ? this.handleCancel : this.handleDownvote}
           style={downVoteStyle} >
+          <span className="glyphicon glyphicon-thumbs-down"></span>
         </button>
       </div>
     );

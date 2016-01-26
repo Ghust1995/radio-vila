@@ -17,8 +17,8 @@ var SongQueue = React.createClass({
     });
 
     return (
-      <div className="songQueue">
-        <table>
+      <div className="songQueue col-md-6 col-md-offset-3">
+        <table className="table">
           <thead>
             <th> Song: </th>
             <th> User: </th>

@@ -11,8 +11,9 @@ var UserPanel = React.createClass({
   render: function() {
     var isUserLogged = _.isEmpty(this.props.user);
 
+
     return (
-      <div className="userPanel">
+      <div className="navbar-form navbar-right">
         <div
           className="userPanel-logged-in"
           hidden={isUserLogged}>

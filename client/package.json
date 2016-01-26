@@ -12,6 +12,7 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
+    "bootstrap": "^3.3.6",
     "browserify": "^6.2.0",
     "envify": "^3.0.0",
     "jest-cli": "^0.4.3",

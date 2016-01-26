@@ -37,19 +37,25 @@ var Login = React.createClass({
     return (
       <div className="loginForm" hidden={this.props.isHidden}>
         <form onSubmit={this.handleSubmit}>
-          <input
+          <div className="form-group">
+            <input
+            className="form-control"
             type="text"
             placeholder="Username"
             value={this.state.username}
             onChange={this.handleUsernameChange}
             />
-          <input
-            type="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handlePasswordChange}
-            />
-          <input type="submit" value="Login"/>
+          </div>
+          <div className="form-group">
+            <input
+              className="form-control"
+              type="password"
+              placeholder="Password"
+              value={this.state.password}
+              onChange={this.handlePasswordChange}
+              />
+          </div>
+          <button type="submit" className="btn btn-success">Login</button>
         </form>
       </div>
     );
