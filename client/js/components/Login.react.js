@@ -35,9 +35,9 @@ var Login = React.createClass({
 
   render: function() {
     return (
-      <div className="loginForm" hidden={this.props.isHidden}>
+      <div className="loginForm form-group">
         <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
+          <div className="">
             <input
             className="form-control"
             type="text"

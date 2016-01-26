@@ -3,6 +3,7 @@ var React = require('react');
 // Stores
 var SongQueueStore = require('../stores/SongQueueStore');
 var UserStore = require('../stores/UserStore');
+var CurrentSongStore = require('../stores/CurrentSongStore');
 
 // Components
 var SongQueue = require('./SongQueue.react');
@@ -16,6 +17,7 @@ function getState() {
     isAddingSong: SongQueueStore.isLoading(),
     user: UserStore.get(),
     isUserLogged: UserStore.isLogged(),
+    currentSong: CurrentSongStore.get()
   }
 }
 var RadioApp = React.createClass({
@@ -27,18 +29,20 @@ var RadioApp = React.createClass({
   componentDidMount: function() {
     SongQueueStore.addChangeListener(this._onChange);
     UserStore.addChangeListener(this._onChange);
+    CurrentSongStore.addChangeListener(this._onChange);
   },
 
   componentWillUnmount: function() {
     SongQueueStore.removeChangeListener(this._onChange);
-    UserStore.addChangeListener(this._onChange);
+    UserStore.removeChangeListener(this._onChange);
+    CurrentSongStore.removeChangeListener(this._onChange);
   },
 
   render: function() {
     return (
       <div className="radioapp">
-        <NavBar user={this.state.user} />
-        <div hidden={!this.state.isUserLogged} style={{marginTop: 100}}>
+        <NavBar user={this.state.user} currentSong={this.state.currentSong}/>
+        <div hidden={!this.state.isUserLogged} style={{marginTop: 150}}>
           <AddSong username={this.state.user.name} isLoading={this.state.isAddingSong}/>
           <SongQueue songQueue={this.state.songQueue} />
         </div>::after
