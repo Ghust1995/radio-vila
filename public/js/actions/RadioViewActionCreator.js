@@ -33,11 +33,19 @@ module.exports = {
 
   voteQueuedSong: function(id, voteType) {
     Dispatcher.dispatch({
-      type:ActionTypes.VOTE_QUEUED_SONG,
+      type: ActionTypes.VOTE_QUEUED_SONG,
       id: id,
       voteType: voteType,
     });
 
     RadioWebAPIUtils.voteQueuedSong(id, voteType);
   },
+
+  searchYoutube: function(query) {
+    Dispatcher.dispatch({
+      type: ActionTypes.YOUTUBE_SEARCH,
+      query: query,
+    });
+  },
+  
 };

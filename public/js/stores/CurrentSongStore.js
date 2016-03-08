@@ -27,8 +27,7 @@ var _currentSong = {
 
 function _addTime() {
   _currentSong.elapsed.sec++;
-  window.console.log("hello");
-  while(_currentSong.elapsed.sec >= 60) {    
+  while(_currentSong.elapsed.sec >= 60) {
     _currentSong.elapsed.min += 1
     _currentSong.elapsed.sec -= 60;
   }

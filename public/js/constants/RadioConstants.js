@@ -18,5 +18,7 @@ module.exports = {
     VOTE_QUEUED_SONG: 50,
     VOTE_QUEUED_SONG_SUCCESS: 51,
     VOTE_QUEUED_SONG_ERROR: 52,
+
+    YOUTUBE_SEARCH: 60,
   }
 };

@@ -1,6 +1,9 @@
 var React = require('react');
+var _ = require('underscore');
 
 var RadioViewActionCreator = require('../actions/RadioViewActionCreator');
+
+var YoutubePreview = require('./YoutubePreview.react');
 
 var idcount = 0;
 
@@ -12,7 +15,8 @@ var AddSong = React.createClass({
   },
 
   handleSongNameChange: function(e) {
-    this.setState({songName: e.target.value})
+    this.setState({songName: e.target.value});
+    RadioViewActionCreator.searchYoutube(this.state.songName);
   },
 
   handleSubmit: function(e) {
@@ -34,6 +38,12 @@ var AddSong = React.createClass({
   render: function() {
     var loading = this.props.isLoading;
 
+    var previews = _.map(this.props.searchResults, function(r) {
+      return (
+        <YoutubePreview snippet={r.snippet} key={_.uniqueId("youtube_")}></YoutubePreview>
+      )
+    });
+
     return (
       <div className="addNewSongForm col-md-6 col-md-offset-3 text-center">
         <form onSubmit={this.handleSubmit}  className="form-inline">
@@ -50,6 +60,7 @@ var AddSong = React.createClass({
               <span className={"glyphicon glyphicon-" + (!loading ? "plus" : "refresh")}></span>
             </button>
         </form>
+        {previews}
       </div>
     );
   }
