@@ -1,4 +1,5 @@
 var React = require('react');
+var FillableBar = require('./FillableBar.react');
 
 var CurrentSong = React.createClass({
   render: function() {
@@ -17,14 +18,7 @@ var CurrentSong = React.createClass({
             {this.props.song.elapsed.min}:{(this.props.song.elapsed.sec < 10 ? "0" : "") + this.props.song.elapsed.sec}
           </li>
           <li>
-            <div className="progress" style={{width: maxWidth, height: 5}}>
-              <div  className="progress-bar progress-bar-striped active"
-                    role="progressbar"
-                    aria-valuenow={progress}
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    style={{width: maxWidth*progress/100}}/>
-            </div>
+            <FillableBar fill={progress} width={maxWidth}></FillableBar>
           </li>
           <li>
             -{this.props.song.duration.min}:{this.props.song.duration.sec}
