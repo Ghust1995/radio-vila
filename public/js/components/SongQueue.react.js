@@ -11,7 +11,7 @@ var SongQueue = React.createClass({
       return (
           <SongQueueLine
             song={song}
-            key={"s_" + song.id.toString()} >
+            key={_.uniqueId("s_")} >
           </SongQueueLine>
       )
     });

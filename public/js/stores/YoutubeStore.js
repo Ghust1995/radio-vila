@@ -53,11 +53,16 @@ Dispatcher.register(function(action) {
         }
         else {
           _clearVideos();
-          _.each(result.items, function(r) { 
+          _.each(result.items, function(r) {
             _addVideo(r);
           });
         }
       });
+      YoutubeStore.emitChange();
+      break;
+
+    case ActionTypes.ADD_SONG:
+      _clearVideos();
       YoutubeStore.emitChange();
       break;
 
