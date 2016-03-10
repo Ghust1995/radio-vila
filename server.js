@@ -34,3 +34,5 @@ Server.use('/api/songqueues', require('./controllers/songqueues'));
 // =============================================================================
 Server.listen(port);
 console.log('Magic happens on port ' + port);
+
+module.exports = Server;
