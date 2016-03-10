@@ -21,7 +21,6 @@
     "youtube-node": "^1.3.0"
   },
   "devDependencies": {
-<<<<<<< HEAD
     "babel-core": "^6.1.19",
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-react": "^6.1.18",
