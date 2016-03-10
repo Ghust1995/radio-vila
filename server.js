@@ -56,3 +56,5 @@ server.listen(app.get('port'), function(){
 	console.log("Server listening to port" + app.get('port'));
 });
 console.log('Magic happens on port ' + port);
+
+module.exports = server;
