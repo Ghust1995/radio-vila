@@ -18,7 +18,7 @@ var Song = require('../models/song');
 function SongQueueController(io) {
 
     router.route('/')
-        
+
     // Posting a songqueue
     .post(function(req,res){
 
@@ -29,7 +29,7 @@ function SongQueueController(io) {
             if(err)
                 res.send(err);
             else
-                res.status(200).json({id: saved.id});
+                res.status(200).json({SUCCESS: {_id: saved.id, name:songqueue.name}});
         });
     })
 
@@ -37,9 +37,9 @@ function SongQueueController(io) {
     .get(function(req, res) {
 
         SongQueue.find(function(err, songqueues) {
-        if (err)                
+        if (err)
             res.send(err);
-        
+
         res.json(songqueues);
 
         });
@@ -49,7 +49,7 @@ function SongQueueController(io) {
     /// songqueues/id
     ///
     router.route('/:songqueueID')
-        
+
         //Get one songqueue
         .get(function(req,res){
             SongQueue.findById(req.params.songqueueID, function(err,songqueue){
@@ -94,7 +94,7 @@ function SongQueueController(io) {
     /// songqueues/id/songs
     ///
     router.route('/:songqueueID/songs')
-        
+
         // Posting a song in this songqueue
         .post(function(req,res){
 
@@ -129,7 +129,7 @@ function SongQueueController(io) {
     /// songqueues/id/songs/id
     ///
     router.route('/:songqueueID/songs/:songID')
-        
+
         //Get one songqueue
         .get(function(req,res){
 
@@ -169,7 +169,7 @@ function SongQueueController(io) {
         .delete(function(req,res){
             Song.remove({
                 _id: req.params.songID,
-                songqueueID: req.params.songqueueID 
+                songqueueID: req.params.songqueueID
             }, function(err, deleted){
                 if(err)
                     res.send(err);
