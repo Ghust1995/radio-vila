@@ -34,5 +34,5 @@ node_modules
 .node_repl_history
 
 # Ignore Bundles
-client/js/bundle.js
-client/js/bundle.min.js
+public/js/bundle.js
+public/js/bundle.min.js
