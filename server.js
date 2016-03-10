@@ -2,9 +2,29 @@ var Express = require('express');
 var _ = require ("underscore");
 var mongoose = require('mongoose');
 var bodyParser = require ("body-parser");
+var logger = require('morgan');
 
-var Server = new Express();
+
+
+//Setting up the app
+var app = new Express();
 var router = Express.Router();
+
+
+//Socket.io configurations
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+
+
+io.sockets.on('connection', function (socket) {
+	console.log("A user has connected");
+	socket.emit('alerta');
+	socket.on('alerta-cliente', function(){
+    	console.log("Oie")
+  	});
+});
+
+
 
 //Database settings
 mongoose.connect('mongodb://localhost/test');
@@ -16,23 +36,23 @@ db.once('open', function() {
 
 //Setup Port
 var port = process.env.PORT || 8080;
+app.set('port', port);
 
 //Setting config.
-Server.set('views',  __dirname + '/views');
-Server.use(Express.static(__dirname + '/views'));
-Server.use(Express.static(__dirname + '/public'));
-Server.use(bodyParser.json());
-Server.use(bodyParser.urlencoded({extended: true}));
+app.set('views',  __dirname + '/views');
+app.use(Express.static(__dirname + '/views'));
+app.use(Express.static(__dirname + '/public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Setup router
 router.get('/', function(req, res) {
     res.sendFile('index.html');
 });
-Server.use('/api/songqueues', require('./controllers/songqueues'));
+app.use('/api/songqueues', require('./controllers/songqueues')(io));
 
-// START THE SERVER
-// =============================================================================
-Server.listen(port);
+// START THE app
+server.listen(app.get('port'), function(){
+	console.log("Server listening to port" + app.get('port'));
+});
 console.log('Magic happens on port ' + port);
-
-module.exports = Server;
