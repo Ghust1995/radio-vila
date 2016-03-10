@@ -3,10 +3,11 @@
 /// /api/songqueues
 ///
 
-var router = require('express').Router()
+var router = require('express').Router();
 
 // Models
-var SongQueue = require('../models/songqueue')
+var SongQueue = require('../models/songqueue');
+var Song = require('../models/song');
 
 ///
 /// /api/songquques
@@ -15,23 +16,15 @@ router.route('/')
 		
 	// Posting a songqueue
 	.post(function(req,res){
-		var songqueue = new SongQueue();
-		
-		//Logica para mandar os parametros
-		//console.log(req.body.name);
-		//songqueue.name = req.body.name;
-		console.log("params");
-		console.log(req.params);
-		console.log("body");
-		console.log(req.body);
-		console.log("query");
-		console.log(req.query);
 
-		songqueue.save(function(err){
+		var songqueue = new SongQueue();
+		songqueue.name = req.body.name;
+
+		songqueue.save(function(err, saved) {
 			if(err)
 				res.send(err);
-
-			res.json({ message: 'Songqueue created!'});
+			else
+				res.status(200).json({id: saved.id});
 		});
 	})
 
@@ -55,19 +48,17 @@ router.route('/:songqueueID')
     	SongQueue.findById(req.params.songqueueID, function(err,songqueue){
     		if(err)
     			res.send(err);
-    		res.json(songqueue);
+    		res.status(200).json(songqueue);
     	});
-
     })
 
     //Update one songqueue
-    .put(function(req,res){
+    .put(function(req,res) {
+    	// TODO: use findByIdAndUpdate
     	SongQueue.findById(req.params.songqueueID, function(err,songqueue){
     		if(err)
     			res.send(err);
 
-    		//Logica para mandar os parametros
-    		console.log(req.body.name);
 			songqueue.name = req.body.name;
 
 
@@ -75,7 +66,7 @@ router.route('/:songqueueID')
     			if(err)
     				res.send(err);
 
-    			res.json({ message: 'Song updated'});
+    			res.status(200).send('Song updated');
     		});
     	});
     })
@@ -84,12 +75,12 @@ router.route('/:songqueueID')
     .delete(function(req,res){
     	SongQueue.remove({
     		_id: req.params.songqueueID
-    	}, function(err, songqueue){
+    	}, function(err, deleted){
     		if(err)
     			res.send(err);
-
-    		res.json ({ message: 'Successfully deleted'});
+    		else
+    			res.status(200).send(deleted.id);
     	});
     });
 
-module.exports = router
+module.exports = router;
