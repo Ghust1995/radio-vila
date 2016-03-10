@@ -16,7 +16,7 @@ var AddSong = React.createClass({
 
   handleSongNameChange: function(e) {
     this.setState({songName: e.target.value});
-    RadioViewActionCreator.searchYoutube(this.state.songName);
+    RadioViewActionCreator.searchYoutube(e.target.value);
   },
 
   handleSubmit: function(song) {
