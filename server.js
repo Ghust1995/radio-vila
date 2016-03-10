@@ -3,6 +3,7 @@ var _ = require ("underscore");
 var mongoose = require('mongoose');
 var bodyParser = require ("body-parser");
 var logger = require('morgan');
+var config = require('./_config');
 
 
 
@@ -24,10 +25,8 @@ io.sockets.on('connection', function (socket) {
   	});
 });
 
-
-
 //Database settings
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect(config.mongoURI[app.settings.env]);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {

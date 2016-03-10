@@ -65,9 +65,7 @@ function SongQueueController(io) {
             SongQueue.findById(req.params.songqueueID, function(err,songqueue){
                 if(err)
                     res.send(err);
-
                 songqueue.name = req.body.name;
-
 
                 songqueue.save(function(err){
                     if(err)
@@ -80,14 +78,21 @@ function SongQueueController(io) {
 
         //Deleting songqueue
         .delete(function(req,res){
-            SongQueue.remove({
-                _id: req.params.songqueueID
-            }, function(err, deleted){
-                if(err)
-                    res.send(err);
-                else
-                    res.status(200).send(deleted.id);
-            });
+						SongQueue.findById(req.params.songqueueID, function(err, songQueue) {
+							if(err) {
+								res.json({ERROR: err});
+							}
+							else {
+								songQueue.remove(function(err) {
+									if(err) {
+										res.json({ERROR: err});
+									}
+									else {
+										res.json({DELETED: songQueue});
+									}
+								});
+							}
+						});
         });
 
     ///
