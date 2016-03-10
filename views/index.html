@@ -6,6 +6,13 @@
     <link rel="stylesheet" href="/css/bootstrap/dist/css/bootstrap.css" type="text/css">
   </head>
   <body>
+  <script src="/socket.io/socket.io.js"></script>
+	<script>
+		var socket = io('http://localhost:8080');
+		socket.on('alerta', function(){
+			socket.emit('alerta-cliente');
+		});
+	</script>
     <section id="react"></section>
     <script src="/js/bundle.js"></script>
   </body>
