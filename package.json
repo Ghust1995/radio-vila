@@ -52,14 +52,11 @@
     "reactify": "^0.15.2"
   },
   "scripts": {
-    "start": "watchify -o public/js/bundle.js -v -d public/js/app.js",
+    "start": "node server.js",
+    "watch": "nodemon server.js",
     "test": "mocha"
   },
-  "browserify": {
-    "transform": [
-      "reactify",
-      "envify"
-    ]
-  },
-  "author": "Gustavo Guimaraes"
+  "babel": {
+    "presets": ["es2015", "react"]
+  }
 }
