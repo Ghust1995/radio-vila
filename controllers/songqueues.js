@@ -4,12 +4,11 @@
 ///
 
 var router = require('express').Router();
+var _ = require('underscore');
 
 // Models
 var SongQueue = require('../models/songqueue');
 var Song = require('../models/song');
-
-
 
 ///
 /// /api/songquques
@@ -37,10 +36,10 @@ function SongQueueController(io) {
     .get(function(req, res) {
 
         SongQueue.find(function(err, songqueues) {
-        if (err)
-            res.send(err);
+          if (err)
+              res.send(err);
 
-        res.json(songqueues);
+          res.json(songqueues);
 
         });
     });
@@ -56,6 +55,24 @@ function SongQueueController(io) {
                 if(err)
                     res.send(err);
                 res.status(200).json(songqueue);
+            });
+
+            // TODO: Mover pro momento de criacao de uma nova songqueue
+            var newSongQueueSocket = io
+            	.of('/' + req.params.songqueueID)
+            	.on('connection', function (socket) {
+            		console.log("A user has connected to " + req.params.songqueueID);
+                var constraints = {
+            			that: 'only'
+            		}
+                constraints['/' + req.params.songqueueID] = "will get";
+
+            		socket.emit('alerta', _.extend(constraints, {
+                  name: "Server"
+                }));
+            		socket.on('alerta-cliente', function(data){
+            	    console.log("Oie " + data.name);
+            	  });
             });
         })
 

@@ -20,10 +20,12 @@ var SongQueue = React.createClass({
       <div className="songQueue col-md-6 col-md-offset-3">
         <table className="table">
           <thead>
-            <th> Song: </th>
-            <th> User: </th>
-            <th> Rating: </th>
-            <th> VOTE! </th>
+            <tr>
+              <th> Song: </th>
+              <th> User: </th>
+              <th> Rating: </th>
+              <th> VOTE! </th>
+            </tr>            
           </thead>
           <tbody>
             {queueElements}

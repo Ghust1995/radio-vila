@@ -16,15 +16,6 @@ var router = Express.Router();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
-
-io.sockets.on('connection', function (socket) {
-	console.log("A user has connected");
-	socket.emit('alerta');
-	socket.on('alerta-cliente', function(){
-    	console.log("Oie")
-  	});
-});
-
 //Database settings
 mongoose.connect(config.mongoURI[app.settings.env]);
 var db = mongoose.connection;
