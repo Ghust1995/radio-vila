@@ -39,7 +39,7 @@ describe('SongQueue', function() {
         res.body[0].should.have.property('name');
         res.body[0].name.should.equal("Pre");
         done();
-      })
+      });
   });
 
   it('should list a SINGLE songQueue on /songQueue/<id> GET', function(done) {
@@ -58,8 +58,8 @@ describe('SongQueue', function() {
           res.body.should.have.property('name');
           res.body.name.should.equal("New");
           done();
-        })
-    })
+        });
+    });
 
   });
   it('should add a SINGLE songQueue on /songQueue POST', function(done) {
@@ -80,7 +80,6 @@ describe('SongQueue', function() {
       })
   });
   it('should delete a SINGLE songQueue on /songQueue/<id> DELETE', function(done) {
-    console.log("abc")
     chai.request(server)
     .get(url)
     .end(function(err, res){
