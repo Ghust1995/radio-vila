@@ -21,7 +21,9 @@ var dependencies = [
   'react-dom',
   'react-router',
   'underscore',
-  'youtube-node'
+  'youtube-node',
+  'react-player'
+
 ];
 
 /*
@@ -35,7 +37,9 @@ gulp.task('vendor', function() {
     'node_modules/bootstrap/dist/js/bootstrap.js',
   ]).pipe(concat('vendor.js'))
     .pipe(gulpif(production, uglify({ mangle: false })))
-    .pipe(gulp.dest('public/js'));
+    .pipe(gulp.dest('public/js'))
+    .pipe(gulp.dest('player-client/js'));
+
 });
 
 /*
@@ -50,7 +54,8 @@ gulp.task('browserify-vendor', function() {
     .pipe(source('vendor.bundle.js'))
     .pipe(buffer())
     .pipe(gulpif(production, uglify({ mangle: false })))
-    .pipe(gulp.dest('public/js'));
+    .pipe(gulp.dest('public/js'))
+    .pipe(gulp.dest('player-client/js'));
 });
 
 /*
@@ -58,7 +63,7 @@ gulp.task('browserify-vendor', function() {
  | Compile only project files, excluding all third-party dependencies.
  |--------------------------------------------------------------------------
  */
-gulp.task('browserify', ['browserify-vendor'], function() {
+gulp.task('browserify-vote', ['browserify-vendor'], function() {
   return browserify({ entries: 'public/js/app.js', debug: true })
     .external(dependencies)
     .transform(babelify, { presets: ['es2015', 'react'] })
@@ -71,12 +76,25 @@ gulp.task('browserify', ['browserify-vendor'], function() {
     .pipe(gulp.dest('public/js/'));
 });
 
+gulp.task('browserify-player', ['browserify-vendor'], function() {
+  return browserify({ entries: 'player-client/js/app.js', debug: true })
+    .external(dependencies)
+    .transform(babelify, { presets: ['es2015', 'react'] })
+    .bundle()
+    .pipe(source('bundle.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(gulpif(production, uglify({ mangle: false })))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('player-client/js/'));
+});
+
 /*
  |--------------------------------------------------------------------------
  | Same as browserify task, but will also watch for changes and re-compile.
  |--------------------------------------------------------------------------
  */
-gulp.task('browserify-watch', ['browserify-vendor'], function() {
+gulp.task('browserify-vote-watch', ['browserify-vendor'], function() {
   var bundler = watchify(browserify({ entries: 'public/js/app.js', debug: true }, watchify.args));
   bundler.external(dependencies);
   bundler.transform(babelify, { presets: ['es2015', 'react'] });
@@ -100,5 +118,31 @@ gulp.task('browserify-watch', ['browserify-vendor'], function() {
   }
 });
 
-gulp.task('default', ['vendor', 'browserify-watch']);
-gulp.task('build', ['vendor', 'browserify']);
+gulp.task('browserify-player-watch', ['browserify-vendor'], function() {
+  var bundler = watchify(browserify({ entries: 'player-client/js/app.js', debug: true }, watchify.args));
+  bundler.external(dependencies);
+  bundler.transform(babelify, { presets: ['es2015', 'react'] });
+  bundler.on('update', rebundle);
+  return rebundle();
+
+  function rebundle() {
+    var start = Date.now();
+    return bundler.bundle()
+      .on('error', function(err) {
+        gutil.log(gutil.colors.red(err.toString()));
+      })
+      .on('end', function() {
+        gutil.log(gutil.colors.green('Finished rebundling in', (Date.now() - start) + 'ms.'));
+      })
+      .pipe(source('bundle.js'))
+      .pipe(buffer())
+      .pipe(sourcemaps.init({ loadMaps: true }))
+      .pipe(sourcemaps.write('.'))
+      .pipe(gulp.dest('player-client/js/'));
+  }
+});
+
+gulp.task('default', ['vendor', 'browserify-player-watch', 'browserify-vote-watch']);
+gulp.task('player', ['vendor', 'browserify-player-watch']);
+gulp.task('vote', ['vendor', 'browserify-vote-watch']);
+gulp.task('build', ['vendor', 'browserify-player', 'browserify-vote']);

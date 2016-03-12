@@ -16,6 +16,7 @@
     "object-assign": "^1.0.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
+    "react-player": "^0.5.6",
     "react-router": "^1.0.0",
     "socket.io": "^1.4.5",
     "underscore": "^1.8.3",
@@ -57,6 +58,9 @@
     "test": "mocha"
   },
   "babel": {
-    "presets": ["es2015", "react"]
+    "presets": [
+      "es2015",
+      "react"
+    ]
   }
 }

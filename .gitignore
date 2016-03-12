@@ -39,3 +39,9 @@ public/js/bundle.min.js
 public/js/bundle.js.map
 public/js/vendor.bundle.js
 public/js/vendor.js
+
+player-client/js/bundle.js
+player-client/js/bundle.min.js
+player-client/js/bundle.js.map
+player-client/js/vendor.bundle.js
+player-client/js/vendor.js
