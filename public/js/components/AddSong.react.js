@@ -34,7 +34,7 @@ var AddSong = React.createClass({
                         key={_.uniqueId("youtube_")}
                         baseHandleSubmit={this.handleSubmit}
                         username={this.props.username}></YoutubePreview>
-      )
+                    );
     }.bind(this));
 
     return (

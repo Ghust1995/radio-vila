@@ -28,7 +28,7 @@ var QueuedVote = React.createClass({
       backgroundColor: 'transparent',
       border: null,
       outline: 0
-    }
+    };
 
     var downVoteStyle = {
       height: 30,
@@ -37,7 +37,7 @@ var QueuedVote = React.createClass({
       backgroundColor: 'transparent',
       border: null,
       outline: 0
-    }
+    };
 
     return (
       <div className='queuedVoteButtons'>

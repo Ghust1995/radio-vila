@@ -20,7 +20,7 @@ function getState() {
     isUserLogged: UserStore.isLogged(),
     currentSong: CurrentSongStore.get(),
     searchResults: YoutubeStore.get(),
-  }
+  };
 }
 var RadioApp = React.createClass({
 

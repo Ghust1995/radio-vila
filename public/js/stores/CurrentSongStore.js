@@ -28,7 +28,7 @@ var _currentSong = {
 function _addTime() {
   _currentSong.elapsed.sec++;
   while(_currentSong.elapsed.sec >= 60) {
-    _currentSong.elapsed.min += 1
+    _currentSong.elapsed.min += 1;
     _currentSong.elapsed.sec -= 60;
   }
   CurrentSongStore.emitChange();

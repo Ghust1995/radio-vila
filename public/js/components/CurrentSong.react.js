@@ -4,7 +4,7 @@ var FillableBar = require('./FillableBar.react');
 var CurrentSong = React.createClass({
   render: function() {
 
-    var progress = (this.props.song.elapsed.min * 60 + this.props.song.elapsed.sec) / (this.props.song.duration.min * 60 + this.props.song.duration.sec)
+    var progress = (this.props.song.elapsed.min * 60 + this.props.song.elapsed.sec) / (this.props.song.duration.min * 60 + this.props.song.duration.sec);
     progress *= 100;
     progress = progress >> 0;
 
