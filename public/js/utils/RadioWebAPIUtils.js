@@ -36,7 +36,7 @@ module.exports = {
       var songQueue = logIntoSongQueue({id: '56e25d5f2020cd482a000001'});
       songQueue.on('alerta', function(data) {
         console.log("Oie " + data.name);
-        songQueue.emit('alerta-cliente', {name: 'Mut'});
+        songQueue.emit('alerta-cliente', {name: user.name});
       });
       RadioServerActionCreators.userLoginSuccess(user);
     }, function(reason) {
