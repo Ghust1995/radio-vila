@@ -81,6 +81,12 @@ Dispatcher.register(function(action) {
       SongQueueStore.emitChange();
       break;
 
+    case ActionTypes.ADD_SONG_ERROR:
+      _toggleLoading();
+      _removeSong(action.song);
+      SongQueueStore.emitChange();
+      break;
+
     case ActionTypes.VOTE_QUEUED_SONG:
       var newRating = _songQueue[action.id].rating - _songQueue[action.id].voteType + action.voteType
       _setVoteForSong(action.id, action.voteType);

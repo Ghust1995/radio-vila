@@ -25,15 +25,26 @@ module.exports = {
 
   addSong: function(song) {
     // Implement Correct API Call here
-
-    RadioServerActionCreators.addSongSuccess(song);
-
+    $.ajax({
+      method: 'POST',
+      url:'/api/songqueues/56e478d10195456025000001/songs',
+      data: song
+    })
+    .done(function(msg) {
+      console.log("Song created");
+      console.log(msg);
+      RadioServerActionCreators.addSongSuccess(song);
+    })
+    .fail(function(msg) {
+      console.log("ERROR");
+      console.log(msg);
+    });
   },
 
   userLogin: function(user) {
     // Implement Correct API Call here
-    $.get('/api/songqueues/56e25d5f2020cd482a000001').then(function(value) {
-      var songQueue = logIntoSongQueue({id: '56e25d5f2020cd482a000001'});
+    $.get('/api/songqueues/56e478d10195456025000001').then(function(value) {
+      var songQueue = logIntoSongQueue({id: '56e478d10195456025000001'});
       songQueue.on('alerta', function(data) {
         console.log("Oie " + data.name);
         songQueue.emit('alerta-cliente', {name: user.name});
