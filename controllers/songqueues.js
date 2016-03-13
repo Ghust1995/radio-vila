@@ -10,12 +10,52 @@ var _ = require('underscore');
 var SongQueue = require('../models/songqueue');
 var Song = require('../models/song');
 
+//Organizing sockets
+var socketsArray_songQueue = [];
+
+function SongQueueController(io) {
+    //Initializating sockets
+    
+    //When the server is initialized, an array containing sockets for all is generated.
+    SongQueue.find(function(err, songqueues) {
+            if (err)
+                res.send(err);
+    
+            _.each(songqueues, function (sq){
+                var newSongQueueSocket = io
+                    .of('/' + sq._id)
+                    .on('connection', function (socket) {
+                        console.log("A user has connected to " + sq._id);
+                    var constraints = {
+                            that: 'only'
+                        }
+                    constraints['/' + sq._id] = "will get";
+
+
+                    //Logic
+                    socket.emit('alerta', _.extend(constraints, {
+                        name: "Server"
+                    }));
+                    socket.on('alerta-cliente', function(data){
+                    console.log("Oie " + data.name);
+                      });
+                });
+
+                socketsArray_songQueue.push(newSongQueueSocket);
+                
+                console.log("Socket for " + sq._id + " added. Element number: " + socketsArray_songQueue.length);
+
+            
+            });
+
+        }); 
+
+
+
+
 ///
 /// /api/songquques
 ///
-
-function SongQueueController(io) {
-
     router.route('/')
 
     // Posting a songqueue
@@ -27,10 +67,36 @@ function SongQueueController(io) {
         songqueue.save(function(err, saved) {
             if(err)
                 res.send(err);
-            else
+            else {
                 res.status(200).json({SUCCESS: {_id: saved.id, name:songqueue.name}});
+                //creating socket for this songqueue
+                var newSongQueueSocket = io
+                    .of('/' + saved.id)
+                    .on('connection', function (socket) {
+                        console.log("A user has connected to " + saved.id);
+                    var constraints = {
+                            that: 'only'
+                        }
+                    constraints['/' + saved.id] = "will get";
+
+
+                    //Logic
+                    socket.emit('alerta', _.extend(constraints, {
+                        name: "Server"
+                    }));
+                    socket.on('alerta-cliente', function(data){
+                    console.log("Oie " + data.name);
+                      });
+                });
+
+                socketsArray_songQueue.push(newSongQueueSocket);
+                
+                console.log("Socket for " + saved.id + " added. Element number: " + socketsArray_songQueue.length);
+        }
         });
-    })
+
+
+        })
 
     // Get all songqueues
     .get(function(req, res) {
@@ -57,23 +123,7 @@ function SongQueueController(io) {
                 res.status(200).json(songqueue);
             });
 
-            // TODO: Mover pro momento de criacao de uma nova songqueue
-            var newSongQueueSocket = io
-            	.of('/' + req.params.songqueueID)
-            	.on('connection', function (socket) {
-            		console.log("A user has connected to " + req.params.songqueueID);
-                var constraints = {
-            			that: 'only'
-            		}
-                constraints['/' + req.params.songqueueID] = "will get";
-
-            		socket.emit('alerta', _.extend(constraints, {
-                  name: "Server"
-                }));
-            		socket.on('alerta-cliente', function(data){
-            	    console.log("Oie " + data.name);
-            	  });
-            });
+           
         })
 
         //Update one songqueue
@@ -95,21 +145,21 @@ function SongQueueController(io) {
 
         //Deleting songqueue
         .delete(function(req,res){
-						SongQueue.findById(req.params.songqueueID, function(err, songQueue) {
-							if(err) {
-								res.json({ERROR: err});
-							}
-							else {
-								songQueue.remove(function(err) {
-									if(err) {
-										res.json({ERROR: err});
-									}
-									else {
-										res.json({DELETED: songQueue});
-									}
-								});
-							}
-						});
+                        SongQueue.findById(req.params.songqueueID, function(err, songQueue) {
+                            if(err) {
+                                res.json({ERROR: err});
+                            }
+                            else {
+                                songQueue.remove(function(err) {
+                                    if(err) {
+                                        res.json({ERROR: err});
+                                    }
+                                    else {
+                                        res.json({DELETED: songQueue});
+                                    }
+                                });
+                            }
+                        });
         });
 
     ///

@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var bodyParser = require ("body-parser");
 var logger = require('morgan');
 var config = require('./_config');
+var songQueue_controller = require ('./controllers/songqueues');
 
 
 
@@ -15,6 +16,7 @@ var router = Express.Router();
 //Socket.io configurations
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
+
 
 //Database settings
 mongoose.connect(config.mongoURI[app.settings.env]);
@@ -39,7 +41,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 router.get('/', function(req, res) {
     res.sendFile('index.html');
 });
-app.use('/api/songqueues', require('./controllers/songqueues')(io));
+app.use('/api/songqueues', require ('./controllers/songqueues')(io));
 
 // START THE app
 server.listen(app.get('port'), function(){
