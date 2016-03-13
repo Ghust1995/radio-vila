@@ -15,17 +15,21 @@ function _toggleLoading() {
   _loading = !_loading;
 }
 
-function _addSong(rawSong) {
-  if(_.isEmpty(_songQueue[rawSong.id]))
-    _songQueue[rawSong.id] = rawSong;
+function _setSongQueue(songQueue) {
+  _songQueue = songQueue;
+}
+
+function _addSong(song) {
+  if(_.isEmpty(_songQueue.songs[song.id]))
+    _songQueue.songs[song.id] = rawSong;
 }
 
 function _setVoteForSong(id, voteType) {
-  _songQueue[id].voteType = voteType;
+  _songQueue.songs[id].voteType = voteType;
 }
 
 function _setSongRating(id, rating) {
-  _songQueue[id].rating = rating;
+  _songQueue.songs[id].rating = rating;
 }
 
 var SongQueueStore = _.extend({}, EventEmitter.prototype, {
@@ -60,9 +64,7 @@ Dispatcher.register(function(action) {
   switch(action.type) {
 
     case ActionTypes.RECEIVE_RAW_SONGS:
-      action.rawSongQueue.forEach(function(rawSong) {
-        _addSong(rawSong);
-      });
+
       SongQueueStore.emitChange();
       break;
 
@@ -88,7 +90,7 @@ Dispatcher.register(function(action) {
       break;
 
     case ActionTypes.VOTE_QUEUED_SONG:
-      var newRating = _songQueue[action.id].rating - _songQueue[action.id].voteType + action.voteType
+      var newRating = _songQueue.songs[action.id].rating - _songQueue.songs[action.id].voteType + action.voteType;
       _setVoteForSong(action.id, action.voteType);
       _setSongRating(action.id, newRating);
       SongQueueStore.emitChange();

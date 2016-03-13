@@ -8,9 +8,12 @@ var YoutubePreview = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
     var song = {
-      youtubeId: this.props.songData.snippet.id,
-      user: this.props.username,
-      name: this.props.songData.snippet.title,
+      playerInfo:{
+        type: 'youtube',
+        id: this.props.songData.snippet.id,
+      },
+      user: this.props.user,
+      title: this.props.songData.snippet.title,
     };
 
     RadioViewActionCreator.addSong(song);

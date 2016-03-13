@@ -13,13 +13,23 @@ module.exports = {
 
   getSongQueue: function() {
     // simulate retrieving data from a database
-    var songQueue = JSON.parse(localStorage.getItem('songQueue'));
-    RadioServerActionCreators.receiveAll(songQueue);
+    $.ajax({
+      method: 'GET',
+      url:'/api/songqueues/56e478d10195456025000001/songs',
+    })
+    .done(function(res) {
+      console.log("Got SongQueue");
+      console.log(res);
+      RadioServerActionCreators.receiveAll({songs: res.json});
+    })
+    .fail(function(res) {
+      console.log("ERROR");
+      console.log(res);
+    });
   },
 
   init: function() {
     // TODO: Make multiple songQueues possible and remove this
-
     this.getSongQueue();
   },
 

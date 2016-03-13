@@ -47,7 +47,7 @@ var RadioApp = React.createClass({
       <div className="radioapp">
         <NavBar user={this.state.user} currentSong={this.state.currentSong}/>
         <div hidden={!this.state.isUserLogged} style={{marginTop: 150}}>
-          <AddSong username={this.state.user.name} isLoading={this.state.isAddingSong} searchResults={this.state.searchResults}/>
+          <AddSong user={this.state.user} isLoading={this.state.isAddingSong} searchResults={this.state.searchResults}/>
           <SongQueue songQueue={this.state.songQueue} />
         </div>
       </div>
