@@ -1,23 +1,35 @@
-var React = require('react');
+import React from 'react';
 
-var QueuedVote = require('./QueuedVote.react');
+// Material UI
+import TableRow from 'material-ui/lib/table/table-row';
+import TableHeader from 'material-ui/lib/table/table-header';
+import TableRowColumn from 'material-ui/lib/table/table-row-column';
+import TableBody from 'material-ui/lib/table/table-body';
 
-var VoteTypes = require('../constants/VoteTypes');
+// Components
+import QueuedVote from './QueuedVote.react';
 
-var SongQueueComponent = React.createClass({
-  render: function() {
-    return (
-      <tr className="songElement">
-        <td>{this.props.song.title}</td>
-        <td>{this.props.song.user}</td>
-        <td>{this.props.song.rating}</td>
-        <td>
-          <QueuedVote songId={this.props.song.id} voteType={this.props.song.voteType}/>
-        </td>
-      </tr>
-    );
+// Constants
+import VoteTypes from '../constants/VoteTypes';
+
+
+class SongQueueComponent extends React.Component{
+  constructor(props, context) {
+    super(props, context);
   }
 
-});
+  render() {
+    return (
+      <TableRow>
+        <TableRowColumn>{this.props.song.title}</TableRowColumn>
+        <TableRowColumn>{this.props.song.user}a</TableRowColumn>
+        <TableRowColumn>{this.props.song.rating}b</TableRowColumn>
+        <TableRowColumn>
+          <QueuedVote songId={this.props.song.id} voteType={this.props.song.voteType}/>
+        </TableRowColumn>
+      </TableRow>
+    );
+  }
+}
 
-module.exports = SongQueueComponent;
+export default SongQueueComponent;

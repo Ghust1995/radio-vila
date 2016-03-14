@@ -1,13 +1,10 @@
-var RadioApp = require('./components/RadioApp.react');
-var RadioExampleData = require('./RadioExampleData');
-var RadioWebAPIUtils = require('./utils/RadioWebAPIUtils');
-var React = require('react');
-var ReactDOM = require('react-dom');
+import RadioApp from './components/RadioApp.react';
+import React from 'react';
+import ReactDOM  from 'react-dom';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
 window.React = React;
-
-RadioExampleData.init();
-
-RadioWebAPIUtils.init();
+injectTapEventPlugin();
 
 ReactDOM.render(
     <RadioApp />,

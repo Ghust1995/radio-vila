@@ -45,3 +45,7 @@ player-client/js/bundle.min.js
 player-client/js/bundle.js.map
 player-client/js/vendor.bundle.js
 player-client/js/vendor.js
+
+# Ignore eslint configurations
+.eslintrc
+.jshintrc

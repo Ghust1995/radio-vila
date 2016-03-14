@@ -1,61 +1,60 @@
-var React = require('react');
+import React from 'react';
 
-var RadioViewActionCreator = require('../actions/RadioViewActionCreator');
-var VoteTypes = require('../constants/VoteTypes');
+// Material UI
+import IconButton from 'material-ui/lib/icon-button';
+import ActionThumbUp from 'material-ui/lib/svg-icons/action/thumb-up';
+import ActionThumbDown from 'material-ui/lib/svg-icons/action/thumb-down';
+import {red500, greenA200} from 'material-ui/lib/styles/colors';// Actions
+import RadioViewActionCreator from '../actions/RadioViewActionCreator';
 
-var QueuedVote = React.createClass({
+// Constants
+import VoteTypes from '../constants/VoteTypes';
 
-  handleUpvote: function() {
+
+class QueuedVote extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleUpvote = this.handleUpvote.bind(this);
+    this.handleDownvote = this.handleDownvote.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
+  }
+
+  handleUpvote() {
     RadioViewActionCreator.voteQueuedSong(this.props.songId, VoteTypes.UPVOTED);
-  },
+  }
 
-  handleDownvote: function() {
+  handleDownvote() {
     RadioViewActionCreator.voteQueuedSong(this.props.songId, VoteTypes.DOWNVOTED);
-  },
+  }
 
-  handleCancel: function() {
+  handleCancel() {
     RadioViewActionCreator.voteQueuedSong(this.props.songId, VoteTypes.UNVOTED);
-  },
+  }
 
-  render: function() {
+  render() {
     var voteType = this.props.voteType;
-
-    // TODO: make this more reusable
-    var upVoteStyle = {
-      height: 30,
-      width: 30,
-      color: voteType == VoteTypes.UPVOTED ? '#20be22' : '',
-      backgroundColor: 'transparent',
-      border: null,
-      outline: 0
-    };
-
-    var downVoteStyle = {
-      height: 30,
-      width: 30,
-      color: voteType == VoteTypes.DOWNVOTED ? '#d52626' : '',
-      backgroundColor: 'transparent',
-      border: null,
-      outline: 0
-    };
 
     return (
       <div className='queuedVoteButtons'>
-        <button
-          className='btn btn-lg'
+        <IconButton
+          tooltip="Like"
           onClick={voteType == VoteTypes.UPVOTED ? this.handleCancel : this.handleUpvote}
-          style={upVoteStyle} >
-          <span className="glyphicon glyphicon-thumbs-up"></span>
-        </button>
-        <button
-          className='btn btn-lg'
-          onClick={voteType == VoteTypes.DOWNVOTED ? this.handleCancel : this.handleDownvote}
-          style={downVoteStyle} >
-          <span className="glyphicon glyphicon-thumbs-down"></span>
-        </button>
+          >
+          <ActionThumbUp
+            color={voteType == VoteTypes.UPVOTED ? greenA200 : null}
+            hoverColor={greenA200}/>
+        </IconButton>
+        <IconButton
+          tooltip="Like"
+          onClick={voteType == VoteTypes.DOWNVOTED ? this.handleCancel : this.handleDownvote}>
+          >
+          <ActionThumbDown
+            color={voteType == VoteTypes.DOWNVOTED ? red500 : null}
+            hoverColor={red500}/>
+        </IconButton>
       </div>
     );
   }
-});
+}
 
 module.exports = QueuedVote;

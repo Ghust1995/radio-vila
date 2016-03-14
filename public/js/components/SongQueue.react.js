@@ -1,11 +1,24 @@
-var React = require('react');
-var _ = require('underscore');
+import React from 'react';
+import _ from 'underscore';
 
-var SongQueueLine = require('./SongQueueLine.react');
+// Material UI
+import Table from 'material-ui/lib/table/table';
+import TableHeaderColumn from 'material-ui/lib/table/table-header-column';
+import TableRow from 'material-ui/lib/table/table-row';
+import TableHeader from 'material-ui/lib/table/table-header';
+import TableRowColumn from 'material-ui/lib/table/table-row-column';
+import TableBody from 'material-ui/lib/table/table-body';
+import TableFooter from 'material-ui/lib/table/table-footer';
 
-var SongQueue = React.createClass({
+// Components
+import SongQueueLine from './SongQueueLine.react';
 
-  render: function() {
+class SongQueue extends React.Component {
+  constructor(props, context) {
+      super(props, context);
+  }
+
+  render() {
     var sortedQueue = _.sortBy(this.props.songQueue.songs, function(song) { return (-((song.rating * 100000000000000) + song.timeCreated)); });
     var queueElements = _.map(sortedQueue, function(song) {
       return (
@@ -18,23 +31,29 @@ var SongQueue = React.createClass({
 
     return (
       <div className="songQueue col-md-6 col-md-offset-3">
-        <table className="table">
-          <thead>
-            <tr>
-              <th> Song: </th>
-              <th> User: </th>
-              <th> Rating: </th>
-              <th> VOTE! </th>
-            </tr>
-          </thead>
-          <tbody>
+        <Table
+            fixedHeader={true}
+            showRowRover={true}
+            selectable={false}
+            >
+          <TableHeader
+            displaySelectAll={false}
+            enableSelectAll={false}>
+            <TableRow>
+              <TableHeaderColumn> Song: </TableHeaderColumn>
+              <TableHeaderColumn> User: </TableHeaderColumn>
+              <TableHeaderColumn> Rating: </TableHeaderColumn>
+              <TableHeaderColumn> VOTE! </TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {queueElements}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     );
   }
 
-});
+}
 
-module.exports = SongQueue;
+export default SongQueue;

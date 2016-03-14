@@ -17,13 +17,14 @@ var sourcemaps = require('gulp-sourcemaps');
 var production = process.env.NODE_ENV === 'production';
 
 var dependencies = [
+  'material-ui',
   'react',
   'react-dom',
   'react-router',
+  'react-tap-event-plugin',
   'underscore',
   'youtube-node',
   'react-player'
-
 ];
 
 /*

@@ -2,7 +2,7 @@ var RadioServerActionCreators = require('../actions/RadioServerActionCreators');
 var $ = require('jquery');
 var _ = require('underscore');
 
-var TEST_SONG_QUEUE_ID = "56e650ee49e1783c19000001";
+var TEST_SONG_QUEUE_ID = "56e6bdec7d5adbe422000001";
 
 function logIntoSongQueue(songQueue, user) {
   // TODO: Make multiple songQueues possible
