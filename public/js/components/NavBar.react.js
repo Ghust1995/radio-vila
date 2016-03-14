@@ -10,6 +10,9 @@ var NavBar = React.createClass({
         <div className="container">
           <div className="navbar-header">
             <a className="navbar-brand" href="#">Radio Vila</a>
+            <div>
+              {this.props.songQueue.name}
+            </div>
           </div>
           <div>
             <CurrentSong song={this.props.currentSong} />

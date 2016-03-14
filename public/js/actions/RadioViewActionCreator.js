@@ -5,6 +5,14 @@ var RadioWebAPIUtils = require('../utils/RadioWebAPIUtils');
 var ActionTypes = RadioConstants.ActionTypes;
 
 module.exports = {
+  getSongQueue: function(songQueueId) {
+    Dispatcher.dispatch({
+      type: ActionTypes.RECEIVE_RAW_SONGS,
+      songQueueId: songQueueId
+    });
+
+    RadioWebAPIUtils.getSongQueue(songQueueId);
+  },
 
   addSong: function(song) {
     Dispatcher.dispatch({
@@ -47,5 +55,5 @@ module.exports = {
       query: query,
     });
   },
-  
+
 };

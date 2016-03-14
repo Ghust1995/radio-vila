@@ -1,7 +1,9 @@
 module.exports = {
 
   ActionTypes: {
-    RECEIVE_RAW_SONGS: 1,
+    GET_SONG_QUEUE: 1,
+    GET_SONG_QUEUE_SUCCESS: 2,
+    GET_SONG_QUEUE_ERROR: 3,
 
     USER_LOGIN: 20,
     USER_LOGIN_SUCCESS: 21,

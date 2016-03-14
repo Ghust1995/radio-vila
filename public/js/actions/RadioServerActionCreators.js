@@ -4,10 +4,17 @@ var RadioConstants = require('../constants/RadioConstants');
 var ActionTypes = RadioConstants.ActionTypes;
 
 module.exports = {
-  receiveAll: function(rawSongQueue) {
+  getSongQueueSuccess: function(songQueue) {
     Dispatcher.dispatch({
-      type: ActionTypes.RECEIVE_RAW_SONGS,
-      rawSongQueue: rawSongQueue
+      type: ActionTypes.GET_SONG_QUEUE_SUCCESS,
+      songQueue: songQueue
+    });
+  },
+
+  getSongQueueError: function(songQueue) {
+    Dispatcher.dispatch({
+      type: ActionTypes.GET_SONG_QUEUE_ERROR,
+      songQueue: songQueue
     });
   },
 

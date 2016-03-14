@@ -8,7 +8,7 @@ var SongQueueComponent = React.createClass({
   render: function() {
     return (
       <tr className="songElement">
-        <td>{this.props.song.name}</td>
+        <td>{this.props.song.title}</td>
         <td>{this.props.song.user}</td>
         <td>{this.props.song.rating}</td>
         <td>

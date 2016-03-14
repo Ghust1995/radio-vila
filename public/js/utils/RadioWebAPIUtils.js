@@ -1,5 +1,8 @@
 var RadioServerActionCreators = require('../actions/RadioServerActionCreators');
 var $ = require('jquery');
+var _ = require('underscore');
+
+var TEST_SONG_QUEUE_ID = "56e650ee49e1783c19000001";
 
 function logIntoSongQueue(songQueue, user) {
   // TODO: Make multiple songQueues possible
@@ -11,16 +14,27 @@ function logIntoSongQueue(songQueue, user) {
 
 module.exports = {
 
-  getSongQueue: function() {
-    // simulate retrieving data from a database
+  getSongQueue: function(songQueueId) {
+    var SongQueue = {};
     $.ajax({
       method: 'GET',
-      url:'/api/songqueues/56e478d10195456025000001/songs',
+      url:'/api/songQueues/'+ songQueueId,
     })
     .done(function(res) {
-      console.log("Got SongQueue");
-      console.log(res);
-      RadioServerActionCreators.receiveAll({songs: res.json});
+      _.extend(SongQueue, res);
+      $.ajax({
+        method: 'GET',
+        url: res.songs.url,
+      })
+      .done(function(res) {
+        _.extend(SongQueue, {songs: res});
+        RadioServerActionCreators.getSongQueueSuccess(SongQueue);
+      })
+      .fail(function(res) {
+        console.log("ERROR");
+        console.log(res);
+      });
+
     })
     .fail(function(res) {
       console.log("ERROR");
@@ -30,14 +44,14 @@ module.exports = {
 
   init: function() {
     // TODO: Make multiple songQueues possible and remove this
-    this.getSongQueue();
+    //this.getSongQueue();
   },
 
   addSong: function(song) {
     // Implement Correct API Call here
     $.ajax({
       method: 'POST',
-      url:'/api/songqueues/56e478d10195456025000001/songs',
+      url:'/api/songqueues/'+ TEST_SONG_QUEUE_ID + '/songs',
       data: song
     })
     .done(function(msg) {
@@ -53,17 +67,13 @@ module.exports = {
 
   userLogin: function(user) {
     // Implement Correct API Call here
-    $.get('/api/songqueues/56e478d10195456025000001').then(function(value) {
-      var songQueue = logIntoSongQueue({id: '56e478d10195456025000001'});
-      songQueue.on('alerta', function(data) {
-        console.log("Oie " + data.name);
-        songQueue.emit('alerta-cliente', {name: user.name});
-      });
+    var songQueue = logIntoSongQueue({id: TEST_SONG_QUEUE_ID});
+    songQueue.on('alerta', function(data) {
+      console.log("Oie " + data.name);
+      songQueue.emit('alerta-cliente', {name: user.name});
+      this.getSongQueue(TEST_SONG_QUEUE_ID);
       RadioServerActionCreators.userLoginSuccess(user);
-    }, function(reason) {
-      console.log('Error');
-      console.log(reason);
-    });
+    }.bind(this));
   },
 
   userLogout: function(user) {

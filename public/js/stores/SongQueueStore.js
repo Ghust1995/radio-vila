@@ -20,8 +20,9 @@ function _setSongQueue(songQueue) {
 }
 
 function _addSong(song) {
-  if(_.isEmpty(_songQueue.songs[song.id]))
-    _songQueue.songs[song.id] = rawSong;
+  if(_.isEmpty(_songQueue.songs[song.id])) {
+    _songQueue.songs[song.id] = song;
+  }
 }
 
 function _setVoteForSong(id, voteType) {
@@ -63,17 +64,19 @@ Dispatcher.register(function(action) {
 
   switch(action.type) {
 
-    case ActionTypes.RECEIVE_RAW_SONGS:
-
+    case ActionTypes.GET_SONG_QUEUE_SUCCESS:
+      console.log('SUCCESS');
+      _setSongQueue(action.songQueue);
       SongQueueStore.emitChange();
       break;
 
     case ActionTypes.ADD_SONG:
       _toggleLoading();
-      var notSoRawSong = action.song;
-      notSoRawSong.voteType = VoteTypes.UPVOTED;
-      notSoRawSong.rating = 1;
-      _addSong(notSoRawSong);
+      var song = action.song;
+      song.voteType = VoteTypes.UPVOTED;
+      song.rating = 1;
+      _addSong(song);
+      console.log(_songQueue);
       SongQueueStore.emitChange();
       break;
 
