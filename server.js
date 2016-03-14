@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var bodyParser = require ("body-parser");
 var logger = require('morgan');
 var config = require('./_config');
-var songQueue_controller = require ('./controllers/songqueues');
+var songQueue_controller = require ('./controllers/songQueues');
 
 
 
@@ -36,6 +36,12 @@ app.use(Express.static(__dirname + '/views'));
 app.use(Express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(logger('dev'));
+app.use(function(req, res, next) {
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Header', 'Origin, X-Requested-With, Content-Type, Accept');
+	next();
+});
 
 // Setup router
 router.get('/', function(req, res) {

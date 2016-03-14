@@ -3,6 +3,9 @@ var Schema = mongoose.Schema;
 
 var SongSchema = new Schema({
 	title: String,
+	rating: Number,
+	url: String,
+	timeCreated: Date,
 	user: {
 		id: String,
 		name: String,
@@ -13,11 +16,13 @@ var SongSchema = new Schema({
 		type: String,
 		url: String,
 	},
-	songqueue:{
+	songQueue:{
 		id: String,
 		url: String,
 	},
-	rating: Integer,
+	votes: {
+		url: String,
+	},
 });
 
 module.exports = mongoose.model('Song', SongSchema);
