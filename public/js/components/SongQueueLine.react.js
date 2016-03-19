@@ -25,7 +25,7 @@ class SongQueueComponent extends React.Component{
         <TableRowColumn>{this.props.song.user}a</TableRowColumn>
         <TableRowColumn>{this.props.song.rating}b</TableRowColumn>
         <TableRowColumn>
-          <QueuedVote songId={this.props.song.id} voteType={this.props.song.voteType}/>
+          <QueuedVote songId={this.props.song._id} voteType={this.props.song.voteType}/>
         </TableRowColumn>
       </TableRow>
     );

@@ -14,26 +14,12 @@ var _currentSong = {
     min: 2,
     sec: 55,
   },
-  elapsed:{
-    min: 0,
-    sec: 0,
-  },
   user: 'Mut',
   name: 'A rainbow in curved air',
   rating: 0,
   voteType: VoteTypes.UNVOTED,
   timeCreated: new Date().getTime(),
 };
-
-function _addTime() {
-  _currentSong.elapsed.sec++;
-  while(_currentSong.elapsed.sec >= 60) {
-    _currentSong.elapsed.min += 1;
-    _currentSong.elapsed.sec -= 60;
-  }
-  CurrentSongStore.emitChange();
-}
-setInterval(_addTime, 1000);
 
 var CurrentSongStore = _.extend({}, EventEmitter.prototype, {
 

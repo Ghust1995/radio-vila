@@ -1,32 +1,55 @@
-var React = require('react');
-var _ = require('underscore');
+import React from 'react';
+import _ from 'underscore';
 
-var RadioViewActionCreator = require('../actions/RadioViewActionCreator');
+// Material UI
+import TextField from 'material-ui/lib/text-field';
+import GridList from 'material-ui/lib/grid-list/grid-list';
 
-var YoutubePreview = require('./YoutubePreview.react');
+// Actions
+import RadioViewActionCreator from '../actions/RadioViewActionCreator';
 
-var idcount = 0;
+// Components
+import YoutubePreview from './YoutubePreview.react';
 
-var AddSong = React.createClass({
-  getInitialState: function() {
-    return {
+const styles = {
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+  },
+  gridList: {
+    width: 500,
+    height: 450,
+    overflowY: 'auto',
+    marginBottom: 24,
+  },
+};
+
+class AddSong extends React.Component{
+  constructor(props, context) {
+    super(props, context);
+
+    this.handleSongNameChange = this.handleSongNameChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.state = {
       songName: '',
     };
-  },
+  }
 
-  handleSongNameChange: function(e) {
+  handleSongNameChange(e) {
     this.setState({songName: e.target.value});
     RadioViewActionCreator.searchYoutube(e.target.value);
-  },
+  }
 
-  handleSubmit: function(song) {
+  handleSubmit(song) {
     this.setState({
       songName: '',
     });
     RadioViewActionCreator.searchYoutube(this.state.songName);
-  },
+  }
 
-  render: function() {
+  render() {
 
     var previews = _.map(this.props.searchResults, function(r) {
       return (
@@ -39,18 +62,17 @@ var AddSong = React.createClass({
 
     return (
       <div className="addNewSongForm col-md-6 col-md-offset-3 text-center">
-        <input
-          type="text"
-          placeholder="Add your song here"
-          value={this.state.songName}
+        <TextField
+          floatingLabelText="Add your song here"
           onChange={this.handleSongNameChange}
-          className="form-control input-lg"
-          />
-        {previews}
+          value={this.state.songName}
+        />
+        <div style={styles.root}>
+          {previews}
+        </div>
       </div>
     );
   }
+}
 
-});
-
-module.exports = AddSong;
+export default AddSong;

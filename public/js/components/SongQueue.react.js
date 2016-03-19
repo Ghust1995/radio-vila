@@ -35,6 +35,7 @@ class SongQueue extends React.Component {
             fixedHeader={true}
             showRowRover={true}
             selectable={false}
+            height={"500px"}
             >
           <TableHeader
             displaySelectAll={false}

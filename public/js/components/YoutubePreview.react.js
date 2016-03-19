@@ -1,11 +1,21 @@
-var React = require('react');
-var PropTypes = React.PropTypes;
+import React, {PropTypes} from 'react';
 
-var RadioViewActionCreator = require('../actions/RadioViewActionCreator');
+// Mateial UI
+import GridTile from 'material-ui/lib/grid-list/grid-tile';
+import ControlPoint from 'material-ui/lib/svg-icons/image/control-point';
+import IconButton from 'material-ui/lib/icon-button';
 
-var YoutubePreview = React.createClass({
+// Actions
+import RadioViewActionCreator from '../actions/RadioViewActionCreator';
 
-  handleSubmit: function(e) {
+class YoutubePreview extends React.Component{
+  constructor(props, context) {
+    super(props, context);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(e) {
     e.preventDefault();
     var song = {
       playerInfo:{
@@ -17,30 +27,17 @@ var YoutubePreview = React.createClass({
     };
 
     RadioViewActionCreator.addSong(song);
-  },
+  }
 
-  render: function() {
+  render() {
 
     return (
-      <div className="media">
-        <div className="media-left">
-          <a href="#">
-            <img className="media-object" src={this.props.songData.snippet.thumbnails.default.url}></img>
-          </a>
-        </div>
-        <div className="media-body">
-          <h4 className="media-heading">{this.props.songData.snippet.title}</h4>
-          {this.props.songData.snippet.description}
-          <button className="btn btn-lg btn-success"
-                  type="submit"
-                  onClick={this.handleSubmit}>
-            Add to Queue  <span className="glyphicon glyphicon-plus"></span>
-          </button>
-        </div>
+      <div>
+        <img src={this.props.songData.snippet.thumbnails.default.url} />
       </div>
     );
   }
 
-});
+}
 
-module.exports = YoutubePreview;
+export default YoutubePreview;

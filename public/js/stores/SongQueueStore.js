@@ -1,9 +1,9 @@
-var Dispatcher = require('../dispatcher/Dispatcher');
-var RadioConstants = require('../constants/RadioConstants');
-var EventEmitter = require('events').EventEmitter;
-var _ = require('underscore');
+import Dispatcher from '../dispatcher/Dispatcher';
+import RadioConstants from '../constants/RadioConstants';
+import {EventEmitter} from 'events';
+import _ from 'underscore';
 
-var VoteTypes = require('../constants/VoteTypes');
+import VoteTypes from '../constants/VoteTypes';
 
 var ActionTypes = RadioConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
@@ -20,17 +20,18 @@ function _setSongQueue(songQueue) {
 }
 
 function _addSong(song) {
-  if(_.isEmpty(_songQueue.songs[song.id])) {
-    _songQueue.songs[song.id] = song;
+  let addedSong = _.find(_songQueue.songs, (queuedSong) => queuedSong._id === song.id);
+  if(_.isUndefined(addedSong)) {
+    _songQueue.songs.push(song);
   }
 }
 
 function _setVoteForSong(id, voteType) {
-  _songQueue.songs[id].voteType = voteType;
+  _.find(_songQueue.songs, (queuedSong) => queuedSong._id === id).voteType = voteType;
 }
 
 function _setSongRating(id, rating) {
-  _songQueue.songs[id].rating = rating;
+  _.find(_songQueue.songs, (queuedSong) => queuedSong._id === id).rating = rating;
 }
 
 var SongQueueStore = _.extend({}, EventEmitter.prototype, {
@@ -72,11 +73,10 @@ Dispatcher.register(function(action) {
 
     case ActionTypes.ADD_SONG:
       _toggleLoading();
-      var song = action.song;
+      let song = action.song;
       song.voteType = VoteTypes.UPVOTED;
       song.rating = 1;
       _addSong(song);
-      console.log(_songQueue);
       SongQueueStore.emitChange();
       break;
 
@@ -93,7 +93,9 @@ Dispatcher.register(function(action) {
       break;
 
     case ActionTypes.VOTE_QUEUED_SONG:
-      var newRating = _songQueue.songs[action.id].rating - _songQueue.songs[action.id].voteType + action.voteType;
+      let ratedSong = _.find(_songQueue.songs, (song) => song._id === action.id);
+      console.log(ratedSong);
+      var newRating = ratedSong.rating - ratedSong.voteType + action.voteType;
       _setVoteForSong(action.id, action.voteType);
       _setSongRating(action.id, newRating);
       SongQueueStore.emitChange();

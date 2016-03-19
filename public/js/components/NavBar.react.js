@@ -1,10 +1,13 @@
-var React = require('react');
-var UserPanel = require('./UserPanel.react');
-var CurrentSong = require('./CurrentSong.react');
+import React from 'react';
+import UserPanel from './UserPanel.react';
+import CurrentSong from './CurrentSong.react';
 
-var NavBar = React.createClass({
-
-  render: function() {
+class NavBar extends React.Component{
+  constructor(props, context) {
+    super(props, context);
+  }
+  
+  render() {
     return (
       <nav className="navbar navbar-default navbar-fixed-top">
         <div className="container">
@@ -24,7 +27,6 @@ var NavBar = React.createClass({
       </nav>
     );
   }
+}
 
-});
-
-module.exports = NavBar;
+export default NavBar;

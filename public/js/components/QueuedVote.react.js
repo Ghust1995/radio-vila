@@ -37,7 +37,6 @@ class QueuedVote extends React.Component {
     return (
       <div className='queuedVoteButtons'>
         <IconButton
-          tooltip="Like"
           onClick={voteType == VoteTypes.UPVOTED ? this.handleCancel : this.handleUpvote}
           >
           <ActionThumbUp
@@ -45,7 +44,6 @@ class QueuedVote extends React.Component {
             hoverColor={greenA200}/>
         </IconButton>
         <IconButton
-          tooltip="Like"
           onClick={voteType == VoteTypes.DOWNVOTED ? this.handleCancel : this.handleDownvote}>
           >
           <ActionThumbDown

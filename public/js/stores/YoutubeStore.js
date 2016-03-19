@@ -10,17 +10,17 @@ youTube.setKey('AIzaSyB1OOSpTREs85WUMvIgJvLTZKye4BVsoFU');
 var ActionTypes = RadioConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
-var _videosMetadata = {};
+var _videos = {};
 
-function _addVideo(videoMetadatum) {
-  if(_.isEmpty(_videosMetadata[videoMetadatum.id.videoId])) {
-    _videosMetadata[videoMetadatum.id.videoId] = videoMetadatum;
-    _videosMetadata[videoMetadatum.id.videoId].id = videoMetadatum.id.videoId;
+function _addVideo(video) {
+  if(_.isEmpty(_videos[video.id.videoId])) {
+    _videos[video.id.videoId] = video;
+    _videos[video.id.videoId].id = video.id.videoId;
   }
 }
 
 function _clearVideos() {
-  _videosMetadata = {};
+  _videos = {};
 }
 
 var YoutubeStore = _.extend({}, EventEmitter.prototype, {
@@ -38,7 +38,7 @@ var YoutubeStore = _.extend({}, EventEmitter.prototype, {
   },
 
   get: function() {
-    return _videosMetadata;
+    return _videos;
   },
 });
 
@@ -47,7 +47,7 @@ Dispatcher.register(function(action) {
   switch(action.type) {
 
     case ActionTypes.YOUTUBE_SEARCH:
-      youTube.search(action.query, 4, function(error, result) {
+      youTube.search(action.query, 8, function(error, result) {
         if (error) {
           console.log(error);
         }
